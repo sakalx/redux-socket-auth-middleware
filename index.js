@@ -1,7 +1,7 @@
 import isSocket from './isSocket';
 
 
-function socketAuth() {
+function socketAuth({dispatch}) {
   return next => action => {
 
     // Is there a payload?
@@ -11,8 +11,8 @@ function socketAuth() {
       const TYPE = action.type;
       const PAYLOAD = action.payload;
 
-      // Is the socket.io defined?
-      if (isSocket(PAYLOAD)) {
+      // Is the socket.io defined and not connected?
+      if (isSocket(PAYLOAD) && !PAYLOAD.connected) {
 
         // Instantiate variable to hold socket.io:
         let socket;
@@ -32,41 +32,42 @@ function socketAuth() {
         const REJECTED_SUFFIX = '_REJECTED';
         const DISCONNECTED_SUFFIX = '_DISCONNECTED';
 
-        // Function: handleConnected
-        // This function dispatches the connected action
-        // where payload is connected socket.io.
+        /*  Function: handleConnected
+        * This function dispatches the connected action,
+        * where payload is connected socket.io.
+        */
         const handleConnected = () => {
-          next({
+          dispatch({
             // Concatenate the type string property.
             type: TYPE + CONNECTED_SUFFIX,
             payload: socket,
           });
         };
 
-        /*  Function: handleRejected connection
-        * This function move into the next middleware
-        * where payload is error rejection
-        * and close/disconnect socket.io.
+        /*  Function: handleRejected
+        * This function close/disconnect socket.io
+        * and dispatches the reject action,
+        * where payload is error rejection.
         */
         const handleRejected = (error) => {
           socket.close(); // socket.disconnect();
 
-          next({
+          dispatch({
             // Concatenate the type string property.
             type: TYPE + REJECTED_SUFFIX,
             payload: error,
           });
         };
 
-        /*  Function: disconnectedServer connection
-        * This function move into the next middleware
-        * where payload is reason disconnecting
-        * and close/disconnect socket.io.
+        /*  Function: disconnectedServer
+        * This function close/disconnect socket.io
+        * and dispatches the disconnect action,
+        * where payload is reason disconnecting.
         */
         const disconnectedServer = (reason) => {
           socket.close(); // socket.disconnect();
 
-          next({
+          dispatch({
             // Concatenate the type string property.
             type: TYPE + DISCONNECTED_SUFFIX,
             payload: reason,
@@ -102,7 +103,8 @@ function socketAuth() {
           type: TYPE + PENDING_SUFFIX,
         });
 
-        // If payload not socket.io, move into the next middleware.
+        // If payload not socket.io or socket.io connected,
+        // move into the next middleware.
       } else {
         next(action);
       }
