@@ -2,6 +2,10 @@ import isSocket from './isSocket';
 
 
 function socketAuth({dispatch}) {
+
+  // Instantiate variable to hold socket.io:
+  let socket = null;
+
   return next => action => {
 
     // Is there a payload?
@@ -13,9 +17,6 @@ function socketAuth({dispatch}) {
 
       // Is the socket.io defined and not connected?
       if (isSocket(PAYLOAD) && !PAYLOAD.connected) {
-
-        // Instantiate variable to hold socket.io:
-        let socket;
 
         // Instantiate and define constants for the socket.io events.
         // [https://socket.io/docs/client-api]
@@ -84,21 +85,22 @@ function socketAuth({dispatch}) {
           socket.removeListener(CONNECT_TIMEOUT, handleRejected);
           socket.removeListener(DISCONNECT, disconnectedServer);
 
-          // If socket variable not hold socket.io
-        } else {
-
-          // Save socket.io into variable.
-          socket = PAYLOAD;
-
-          // First, adding listeners to move into the next middleware.
-          socket.on(CONNECT, handleConnected);
-          socket.on(ERROR, handleRejected);
-          socket.on(CONNECT_ERROR, handleRejected);
-          socket.on(CONNECT_TIMEOUT, handleRejected);
-          socket.on(DISCONNECT, disconnectedServer);
+          // Reset socket variable
+          socket = null;
         }
 
-        // Second, move into the next middleware as pending connection
+        // Save socket.io into variable.
+        socket = PAYLOAD;
+
+        // Adding listeners to move into the next middleware.
+        socket.on(CONNECT, handleConnected);
+        socket.on(ERROR, handleRejected);
+        socket.on(CONNECT_ERROR, handleRejected);
+        socket.on(CONNECT_TIMEOUT, handleRejected);
+        socket.on(DISCONNECT, disconnectedServer);
+
+
+        // Move into the next middleware as pending connection
         next({
           type: TYPE + PENDING_SUFFIX,
         });
