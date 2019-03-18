@@ -1,13 +1,15 @@
 import React, {useEffect} from 'react';
-import {connect} from 'react-redux';
 import {HashRouter, Route, Switch} from 'react-router-dom';
 
+import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import PrivateRoute from './components/PrivateRoute'
+import {connectingToServer} from './redux-core/actions/socket';
 
+import PrivateRoute from './components/PrivateRoute';
+import Snackbar from './components/Snackbar';
 import HomePage from './pages/Home';
 import NotFoundPage from './pages/NotFound';
-import {connectingToServer} from './redux-core/actions/socket';
+
 
 function App({socket, connectingToServer}) {
 
@@ -20,12 +22,16 @@ function App({socket, connectingToServer}) {
   }
 
   return (
-    <HashRouter>
-      <Switch>
-        <PrivateRoute exact path='/' component={HomePage}/>
-        <Route component={NotFoundPage}/>
-      </Switch>
-    </HashRouter>
+    <React.Fragment>
+      <HashRouter>
+        <Switch>
+          <PrivateRoute exact path='/' component={HomePage}/>
+          <Route component={NotFoundPage}/>
+        </Switch>
+      </HashRouter>
+
+      <Snackbar/>
+    </React.Fragment>
   )
 }
 

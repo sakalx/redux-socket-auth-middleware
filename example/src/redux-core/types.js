@@ -8,3 +8,8 @@ export const socketAuth = {
 export const socket = {
   CONNECTING: 'CONNECTING_TO_SERVER',
 };
+
+export const snackbar = {
+  SHOW_SNACKBAR: 'SHOW_SNACKBAR_MSG',
+  HIDE_SNACKBAR: 'HIDE_SNACKBAR',
+};
