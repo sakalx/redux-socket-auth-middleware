@@ -12,6 +12,7 @@ export default createMuiTheme({
     MuiTooltip: {
       tooltip: {
         fontSize: '.8rem',
-      }
-    }}
+      },
+    },
+  },
 });

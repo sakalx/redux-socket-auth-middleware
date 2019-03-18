@@ -115,7 +115,7 @@ module.exports = (env, argv) => {
           include: path.resolve(__dirname, `${development}/static/img`),
           use: imgConfig,
         },
-      ]
+      ],
     },
 
     // Webpack dev server
@@ -136,15 +136,15 @@ module.exports = (env, argv) => {
     },
 
     plugins: isProd
-      ? [
-        progressPlugin,
-        cleanProdFolder,
-        //favicon
-        htmlIndex,
-      ]
-      : [
-        progressPlugin,
-        htmlIndex,
-      ],
+        ? [
+          progressPlugin,
+          cleanProdFolder,
+          //favicon
+          htmlIndex,
+        ]
+        : [
+          progressPlugin,
+          htmlIndex,
+        ],
   };
 };

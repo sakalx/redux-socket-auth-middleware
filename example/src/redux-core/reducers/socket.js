@@ -18,7 +18,7 @@ const initState = {
   io: null,
 };
 
-export default function (state = initState, {type, payload}) {
+export default function(state = initState, {type, payload}) {
   switch (type) {
 
     case CONNECTING + PENDING:

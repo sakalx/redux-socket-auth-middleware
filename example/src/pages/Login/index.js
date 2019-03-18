@@ -13,29 +13,30 @@ import {
 
 function LoginPage() {
   return (
-    <Container>
+      <Container>
 
-      <TitleContainer>
-        <Title variant='h4' gutterBottom={true}>
-          Users
-        </Title>
-        <Title variant='h6' gutterBottom={true}>
-          name: password
-        </Title>
-      </TitleContainer>
+        <TitleContainer>
+          <Title variant='h4' gutterBottom={true}>
+            Users
+          </Title>
+          <Title variant='h6' gutterBottom={true}>
+            name: password
+          </Title>
+        </TitleContainer>
 
-      <LoginContainer elevation={24}>
+        <LoginContainer elevation={24}>
 
-        <LoginTitleContainer>
-          <Typography color='textSecondary' variant='h3'>
-            Login
-          </Typography>
-        </LoginTitleContainer>
+          <LoginTitleContainer>
+            <Typography color='textSecondary' variant='h3'>
+              Login
+            </Typography>
+          </LoginTitleContainer>
 
-        <LoginForm/>
-      </LoginContainer>
-    </Container>
-  )
+          <LoginForm/>
+
+        </LoginContainer>
+      </Container>
+  );
 }
 
 export default LoginPage;

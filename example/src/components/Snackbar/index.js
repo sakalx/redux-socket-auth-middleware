@@ -6,17 +6,16 @@ import {hideSnackbar} from '../../redux-core/actions/snackbar';
 
 import SnackbarComponent from '@material-ui/core/Snackbar';
 
-
 const Snackbar = ({snackbar, hideSnackbar}) => (
-  <SnackbarComponent
-    open={snackbar.isOpen}
-    onClose={hideSnackbar}
-    autoHideDuration={3000}
-    ContentProps={{'aria-describedby': 'snackBar-msg'}}
-    message={
-      <span id='snackBar-msg'>{snackbar.message}</span>
-    }
-  />
+    <SnackbarComponent
+        open={snackbar.isOpen}
+        onClose={hideSnackbar}
+        autoHideDuration={3000}
+        ContentProps={{'aria-describedby': 'snackBar-msg'}}
+        message={
+          <span id='snackBar-msg'>{snackbar.message}</span>
+        }
+    />
 );
 
 const mapStateToProps = ({snackbar}) => ({

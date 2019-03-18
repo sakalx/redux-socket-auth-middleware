@@ -10,29 +10,28 @@ import Snackbar from './components/Snackbar';
 import HomePage from './pages/Home';
 import NotFoundPage from './pages/NotFound';
 
-
 function App({socket, connectingToServer}) {
 
   useEffect(() => connectingToServer(), []);
 
   if (socket.fetching) {
     return (
-      <h1>Loading...</h1>
-    )
+        <h1>Loading...</h1>
+    );
   }
 
   return (
-    <React.Fragment>
-      <HashRouter>
-        <Switch>
-          <PrivateRoute exact path='/' component={HomePage}/>
-          <Route component={NotFoundPage}/>
-        </Switch>
-      </HashRouter>
+      <React.Fragment>
+        <HashRouter>
+          <Switch>
+            <PrivateRoute exact path='/' component={HomePage}/>
+            <Route component={NotFoundPage}/>
+          </Switch>
+        </HashRouter>
 
-      <Snackbar/>
-    </React.Fragment>
-  )
+        <Snackbar/>
+      </React.Fragment>
+  );
 }
 
 const mapStateToProps = ({socket}) => ({

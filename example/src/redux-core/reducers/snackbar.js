@@ -10,7 +10,7 @@ const initState = {
   message: '',
 };
 
-export default function (state = initState, {type, payload}) {
+export default function(state = initState, {type, payload}) {
   switch (type) {
 
     case SHOW_SNACKBAR:

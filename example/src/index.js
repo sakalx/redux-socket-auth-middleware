@@ -10,15 +10,14 @@ import muiTheme from './theme';
 
 import App from './app';
 
-
 ReactDOM.render(
-  <React.Fragment>
-    <CssBaseline/>
+    <React.Fragment>
+      <CssBaseline/>
 
-    <MuiThemeProvider theme={muiTheme}>
-      <Provider store={store}>
-        <App/>
-      </Provider>
-    </MuiThemeProvider>
-  </React.Fragment>
-  , document.getElementById('app'));
+      <MuiThemeProvider theme={muiTheme}>
+        <Provider store={store}>
+          <App/>
+        </Provider>
+      </MuiThemeProvider>
+    </React.Fragment>
+    , document.getElementById('app'));
