@@ -5,7 +5,6 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {connectingToServer} from './redux-core/actions/socket';
 
-import LinearProgress from '@material-ui/core/LinearProgress';
 import PrivateRoute from './components/PrivateRoute';
 import Snackbar from './components/Snackbar';
 import HomePage from './pages/Home';
@@ -17,13 +16,6 @@ function App({socket, connectingToServer}) {
 
   return (
       <React.Fragment>
-        {socket.fetching &&
-        <LinearProgress
-            color='secondary'
-            variant='query'
-            style={{position: 'absolute', width: '100%'}}
-        />}
-
         <HashRouter>
           <Switch>
             <PrivateRoute exact path='/' component={HomePage}/>
@@ -36,12 +28,8 @@ function App({socket, connectingToServer}) {
   );
 }
 
-const mapStateToProps = ({socket}) => ({
-  socket,
-});
-
 const mapDispatchToProps = dispatch => bindActionCreators({
   connectingToServer,
 }, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(null, mapDispatchToProps)(App);

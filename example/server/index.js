@@ -4,11 +4,14 @@ const server = require('http').Server(app);
 
 const config = require('./config');
 
-// Middlewares
-app.use(require('./session')['sessionMiddleware']);
+// Create session and session store
+const session = require('./session');
 
-// Connect socket.io to server
-require('./socket')(server);
+// Middlewares
+app.use(session.sessionMiddleware);
+
+// Connect socket.io to server and session
+require('./socket')(server, session);
 
 
 app.get('/', (req, res) => {

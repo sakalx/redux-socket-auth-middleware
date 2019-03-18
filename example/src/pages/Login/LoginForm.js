@@ -12,15 +12,12 @@ import TextField from '@material-ui/core/TextField';
 import {FormContainer} from './style';
 
 function LoginForm({socket, connectingToServer, showSnackbar}) {
-  const [name, setName] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState(false);
-  const [validation, setValidation] = useState(false);
+  const [name, setName] = useState('soda');
+  const [password, setPassword] = useState('soda_password');
 
   useEffect(() => {
-    if (validation && socket.error) {
-      setError(true);
-      showSnackbar(socket.error.message)
+    if (socket.error) {
+      showSnackbar(socket.error.message || socket.error);
     }
   }, [socket.error]);
 
@@ -30,9 +27,7 @@ function LoginForm({socket, connectingToServer, showSnackbar}) {
 
   const handleLogin = () => {
     const user = JSON.stringify({name, password});
-
     connectingToServer(user);
-    setValidation(true);
   };
 
   return (
@@ -41,7 +36,6 @@ function LoginForm({socket, connectingToServer, showSnackbar}) {
           <TextField
               autoComplete='username'
               autoFocus
-              error={error}
               fullWidth
               label='Name'
               name='name'
@@ -50,7 +44,6 @@ function LoginForm({socket, connectingToServer, showSnackbar}) {
           />
           <TextField
               autoComplete='current-password'
-              error={error}
               fullWidth
               label='Password'
               onChange={handleChangePassword}

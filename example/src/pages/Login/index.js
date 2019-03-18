@@ -1,5 +1,8 @@
 import React from 'react';
 
+import {connect} from 'react-redux';
+
+import LinearProgress from '@material-ui/core/LinearProgress';
 import Typography from '@material-ui/core/Typography';
 import LoginForm from './LoginForm';
 
@@ -11,9 +14,17 @@ import {
   LoginTitleContainer,
 } from './style';
 
-function LoginPage() {
+function LoginPage({socket}) {
   return (
       <Container>
+
+        {socket.fetching &&
+        <LinearProgress
+            color='secondary'
+            variant='query'
+            style={{position: 'absolute', width: '100%'}}
+        />}
+
         <TitleContainer>
           <Title variant='h4' gutterBottom={true}>
             Users
@@ -36,4 +47,8 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+const mapStateToProps = ({socket}) => ({
+  socket,
+});
+
+export default connect(mapStateToProps, null)(LoginPage);

@@ -1,9 +1,25 @@
-import React from 'react';
+import React, {useLayoutEffect} from 'react';
 
-function HomePage() {
+import {connect} from 'react-redux';
+
+function HomePage({socket}) {
+
+  useLayoutEffect(() => {
+    socket.io.on('user', f => console.log(f));
+  }, []);
+
+  const logout = () => socket.io.emit('sigOut');
+
   return (
-      <h1>Home page</h1>
+      <div>
+        <h1>Home page</h1>
+        <button onClick={logout}>logout</button>
+      </div>
   );
 }
 
-export default HomePage;
+const mapStateToProps = ({socket}) => ({
+  socket,
+});
+
+export default connect(mapStateToProps, null)(HomePage);

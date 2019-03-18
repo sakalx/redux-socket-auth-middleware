@@ -1,15 +1,14 @@
-module.exports = function (io) {
+module.exports = function (io, sessionStore) {
   const cookie = require('cookie');
   const cookieParser = require('cookie-parser');
 
   const config = require('../../../config');
-  const sessionStore = require('../session')['sessionStore'];
 
   const sigIn = require('./sigIn');
   const loadSession = require('./loadSession');
 
   io.use((socket, next) => {
-    const user = require('./parseUser')(socket.handshake.query.user);
+    const user = require('./parseUser')(socket.handshake.query.user, next);
 
     const session = socket.request.session;
     const cookies = cookie.parse(socket.request.headers.cookie);
