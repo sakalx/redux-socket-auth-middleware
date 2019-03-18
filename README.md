@@ -55,7 +55,7 @@ and include it in applyMiddleware when creating the Redux store:
   
   // Now we can use store in App
   export default store;
-```
+```   
 
 ## Action
 Dispatch a socketIOClient.connect as the value of the payload property of the action.
@@ -234,10 +234,10 @@ ____________________________________________________
  
  ____________________________________________________
  
- ### Issues
+### Issues
  For bug reports and feature requests, file an issue on [GitHub.](https://github.com/sakalx/redux-socket-auth-middleware/issues/new)
  ____________________________________________________
  
-  ### License
+### License
   [Code licensed with the MIT License (MIT).](https://github.com/sakalx/redux-socket-auth-middleware/blob/master/LICENSE)
  ____________________________________________________
