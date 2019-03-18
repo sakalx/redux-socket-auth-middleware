@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {HashRouter, Route, Switch} from 'react-router-dom';
 
 import {bindActionCreators} from 'redux';
-import PrivateRoute from 'root/components/PrivateRoute'
+import PrivateRoute from './components/PrivateRoute'
 
 import HomePage from './pages/Home';
 import NotFoundPage from './pages/NotFound';
