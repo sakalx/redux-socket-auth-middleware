@@ -16,15 +16,38 @@ const DIST_DIR = path.join(__dirname, production);
 module.exports = (env, argv) => {
   const isProd = argv.mode === 'production';
 
+//============================================================
   // Select source map:
   const sourceMap = isProd ? 'nosources-source-map' : 'eval-source-map';
 
+  //============================================================
   // Loaders configs
   const htmlConfig = {
     loader: 'html-loader',
     options: {minimize: isProd},
   };
 
+  const imgDev = {
+    loader: 'file-loader',
+    options: {
+      name: '[name].[ext]',
+      outputPath: 'static/img/',
+    },
+  };
+  const imgProd = [
+    imgDev,
+    {
+      loader: 'image-webpack-loader',
+      options: {
+        optipng: {optimizationLevel: 7},
+        pngquant: {quality: '65-90', speed: 4},
+        mozjpeg: {progressive: true, quality: 65},
+      },
+    },
+  ];
+  const imgConfig = isProd ? imgProd : imgDev;
+
+//============================================================
   // Plugins:
   const progressPlugin = new webpack.ProgressPlugin();
 
@@ -56,7 +79,7 @@ module.exports = (env, argv) => {
     },
   });
 
-
+//============================================================
   // Webpack config
   return {
     devtool: sourceMap,
@@ -86,7 +109,12 @@ module.exports = (env, argv) => {
           ],
           use: 'babel-loader',
         },
-
+        // IMG - loader
+        {
+          test: /\.(jpg|png)$/,
+          include: path.resolve(__dirname, `${development}/static/img`),
+          use: imgConfig,
+        },
       ]
     },
 
