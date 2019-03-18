@@ -10,6 +10,6 @@ export const socket = {
 };
 
 export const snackbar = {
-  SHOW_SNACKBAR: 'SHOW_SNACKBAR_MSG',
+  SHOW_SNACKBAR: 'SHOW_SNACKBAR',
   HIDE_SNACKBAR: 'HIDE_SNACKBAR',
 };

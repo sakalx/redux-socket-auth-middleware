@@ -1,8 +1,9 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {connectingToServer} from '../../redux-core/actions/socket';
+import {showSnackbar} from '../../redux-core/actions/snackbar';
 
 import Button from '@material-ui/core/Button';
 import Collapse from '@material-ui/core/Collapse';
@@ -10,10 +11,18 @@ import TextField from '@material-ui/core/TextField';
 
 import {FormContainer} from './style';
 
-function LoginForm({socket, connectingToServer}) {
+function LoginForm({socket, connectingToServer, showSnackbar}) {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(false);
+  const [validation, setValidation] = useState(false);
+
+  useEffect(() => {
+    if (validation && socket.error) {
+      setError(true);
+      showSnackbar(socket.error.message)
+    }
+  }, [socket.error]);
 
   const handleChangeName = ({target}) => setName(target.value);
 
@@ -21,7 +30,9 @@ function LoginForm({socket, connectingToServer}) {
 
   const handleLogin = () => {
     const user = JSON.stringify({name, password});
+
     connectingToServer(user);
+    setValidation(true);
   };
 
   return (
@@ -68,6 +79,7 @@ const mapStateToProps = ({socket}) => ({
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   connectingToServer,
+  showSnackbar,
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);

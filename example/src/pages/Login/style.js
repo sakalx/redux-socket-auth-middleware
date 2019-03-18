@@ -19,6 +19,7 @@ export const TitleContainer = styled('div')`
   align-items: center;
   display: flex;
   flex-direction: column;
+  flex: 2;
   justify-content: center;
   margin: 0 25px;
 `;

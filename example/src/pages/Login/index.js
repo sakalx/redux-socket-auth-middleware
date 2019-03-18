@@ -14,7 +14,6 @@ import {
 function LoginPage() {
   return (
       <Container>
-
         <TitleContainer>
           <Title variant='h4' gutterBottom={true}>
             Users
@@ -25,7 +24,6 @@ function LoginPage() {
         </TitleContainer>
 
         <LoginContainer elevation={24}>
-
           <LoginTitleContainer>
             <Typography color='textSecondary' variant='h3'>
               Login
@@ -33,7 +31,6 @@ function LoginPage() {
           </LoginTitleContainer>
 
           <LoginForm/>
-
         </LoginContainer>
       </Container>
   );

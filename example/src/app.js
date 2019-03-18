@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {connectingToServer} from './redux-core/actions/socket';
 
+import LinearProgress from '@material-ui/core/LinearProgress';
 import PrivateRoute from './components/PrivateRoute';
 import Snackbar from './components/Snackbar';
 import HomePage from './pages/Home';
@@ -14,14 +15,15 @@ function App({socket, connectingToServer}) {
 
   useEffect(() => connectingToServer(), []);
 
-  if (socket.fetching) {
-    return (
-        <h1>Loading...</h1>
-    );
-  }
-
   return (
       <React.Fragment>
+        {socket.fetching &&
+        <LinearProgress
+            color='secondary'
+            variant='query'
+            style={{position: 'absolute', width: '100%'}}
+        />}
+
         <HashRouter>
           <Switch>
             <PrivateRoute exact path='/' component={HomePage}/>

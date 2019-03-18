@@ -24,6 +24,8 @@ export default function(state = initState, {type, payload}) {
     case CONNECTING + PENDING:
       return ({
         ...state,
+        disconnectReason: null,
+        error: null,
         fetching: true,
       });
 
