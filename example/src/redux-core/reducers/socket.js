@@ -14,7 +14,7 @@ const {
 const initState = {
   disconnectReason: null,
   error: null,
-  fetching: true,
+  fetching: false,
   io: null,
 };
 
@@ -26,6 +26,7 @@ export default function(state = initState, {type, payload}) {
         ...state,
         disconnectReason: null,
         error: null,
+        fetching: true,
       });
 
     case CONNECTING + CONNECTED:
