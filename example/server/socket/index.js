@@ -16,6 +16,7 @@ module.exports = function(server, {sessionMiddleware, sessionStore}) {
     const {session} = socketClient.request;
 
     socketClient.emit('user', session.user.name);
+    socketClient.emit('foo', 'foo');
 
     socketClient.on('sigOut', () => {
       socketClient.disconnect();

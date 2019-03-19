@@ -15,11 +15,12 @@ function LoginForm({socket, connectingToServer, showSnackbar}) {
   const [name, setName] = useState('soda');
   const [password, setPassword] = useState('soda_password');
 
+  const {error} = socket;
   useEffect(() => {
-    if (socket.error) {
-      showSnackbar(socket.error.message || socket.error);
+    if (error) {
+      showSnackbar(error.message || error);
     }
-  }, [socket.error]);
+  }, [error]);
 
   const handleChangeName = ({target}) => setName(target.value);
 
