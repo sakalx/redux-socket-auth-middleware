@@ -14,22 +14,10 @@ module.exports = {
   },
   // MySQL
   mySQL: {
-    host: 'db4free.net',
+    host: 'localhost',
     port: 3306,
-    user: 'sakals',
-    password: '2015A0234$',
-    database: 'socketio_auth',
+    user: 'user',
+    password: 'password',
+    database: 'database',
   },
 };
-
-// Server: sql9.freemysqlhosting.net
-// Name: sql9283787
-// Username: sql9283787
-// Password: Vwj9KpTjhz
-// Port number: 3306
-
-// host: 'db4free.net',
-//   port: 3306,
-//   user: 'sakals',
-//   password: '2015A0234$',
-//   database: 'socketio_auth',
