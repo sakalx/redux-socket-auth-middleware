@@ -1,6 +1,6 @@
 import {socket} from '../types';
 
-import socketConnect from '../../api/socket';
+import socketConnect from '../../api/socket/';
 
 const {
   CONNECTING,

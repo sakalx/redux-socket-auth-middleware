@@ -9,6 +9,15 @@ export const socket = {
   CONNECTING: 'CONNECTING_TO_SERVER',
 };
 
+export const user = {
+  GET_USERS: 'GET_USERS',
+  SET_USER: 'SET_USER',
+};
+
+export const chat = {
+  ADD_MESSAGE: 'ADD_MESSAGE',
+};
+
 export const snackbar = {
   SHOW_SNACKBAR: 'SHOW_SNACKBAR',
   HIDE_SNACKBAR: 'HIDE_SNACKBAR',

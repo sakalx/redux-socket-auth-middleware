@@ -14,7 +14,7 @@ const {
 const initState = {
   disconnectReason: null,
   error: null,
-  fetching: false,
+  fetching: true,
   io: null,
 };
 

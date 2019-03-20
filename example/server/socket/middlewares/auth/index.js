@@ -11,7 +11,7 @@ module.exports = function (io, sessionStore) {
     const user = require('./parseUser')(socket.handshake.query.user, next);
 
     const session = socket.request.session;
-    const cookies = cookie.parse(socket.request.headers.cookie);
+    const cookies = cookie.parse(socket.request.headers.cookie || '');
     const sid = cookieParser.signedCookie(cookies['connect.sid'], config.session.secret);
 
     user

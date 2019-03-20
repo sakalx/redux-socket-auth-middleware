@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 
 import {connect} from 'react-redux';
 
@@ -15,10 +15,20 @@ import {
 } from './style';
 
 function LoginPage({socket}) {
+  const {fetching} = socket;
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!fetching && loading) setLoading(false);
+  }, [fetching]);
+
+  if (loading) return <LinearProgress/>;
+
   return (
       <Container>
 
-        {socket.fetching &&
+        {fetching &&
         <LinearProgress
             color='secondary'
             variant='query'

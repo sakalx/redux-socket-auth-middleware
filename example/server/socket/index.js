@@ -1,5 +1,6 @@
 module.exports = function(server, {sessionMiddleware, sessionStore}) {
   const io = require('socket.io')(server);
+  const event = require('./events');
 
   // Middlewares
   // Pass express sessionMiddleware into socket.io
@@ -12,13 +13,15 @@ module.exports = function(server, {sessionMiddleware, sessionStore}) {
 
   io.on('connection', (socketClient) => {
     console.log('New Socket connected', socketClient.id);
-
     const {session} = socketClient.request;
 
-    socketClient.emit('user', session.user.name);
-    socketClient.emit('foo', 'foo');
+    socketClient.emit(event.user, {id: session.user.id, name: session.user.name});
 
-    socketClient.on('sigOut', () => {
+    socketClient.on(event.newMessage, message => {
+      socketClient.broadcast.emit(event.newMessage, message);
+    });
+
+    socketClient.on(event.sigOut, () => {
       socketClient.disconnect();
       session.destroy();
     });
