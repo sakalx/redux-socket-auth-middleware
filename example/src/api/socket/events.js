@@ -1,5 +1,6 @@
 export default {
-  user: 'user',
-  sigOut: 'sigOut',
   newMessage: 'new_message',
+  sigOut: 'sigOut_user',
+  user: 'current_user',
+  users: 'list_of_user',
 };

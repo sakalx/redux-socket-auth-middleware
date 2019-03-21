@@ -1,13 +1,19 @@
 module.exports = function (user, session, next) {
-  const db = require('../../../mysql');
+  const sql = require('../../../mysql/query');
+  const table = require('../../../config')['mySQL']['table'];
 
   let userFromDb = null;
 
   // Find user in db
-  const sql = 'SELECT * FROM users WHERE NAME = ?';
-  db.query(sql, [user.name])
-    .on('result', user => userFromDb = user)
-    .on('end', signInUser);
+  sql.getDataFromRow({
+    table: table.users,
+    option: {
+      key: 'NAME',
+      value: user.name,
+    },
+    callBackResult: user => userFromDb = user,
+    callBackEnd: signInUser,
+  });
 
   function signInUser() {
     if (!userFromDb) return next(new Error('User not found'));

@@ -24,13 +24,13 @@ function Header({socket, users, setUser}) {
   }, []);
 
   return (
-      <AppBar position='fixed'>
+      <AppBar position='sticky'>
         <Container>
           <Typography color='inherit' variant='h4'>
             {users.current.name}
           </Typography>
           <Typography color='inherit' variant='h6'>
-            successfully connected
+           Socket.io chat
           </Typography>
           <Button
               color='inherit'

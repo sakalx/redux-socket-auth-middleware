@@ -14,6 +14,12 @@ module.exports = {
   },
   // MySQL
   mySQL: {
+    connection: {
 
+    },
+    table: {
+      users: 'users',
+    }
   },
 };
+

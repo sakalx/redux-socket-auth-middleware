@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -10,24 +10,36 @@ import TextField from '@material-ui/core/TextField';
 
 import {Container} from './style';
 
-function NewMessage({socket, users, addMessage}) {
+function NewMessage({
+                      refMessages,
+                      socket,
+                      users,
+                      addMessage,
+}) {
   const [message, setMessage] = useState('');
+
+  const handleAddMessage = message => addMessage(message);
+
+  useEffect(() => {
+    socket.io.on(event.newMessage, handleAddMessage);
+    return () => socket.io.removeListener(event.newMessage, handleAddMessage);
+  }, []);
 
   const handleChangeMsg = ({target}) => setMessage(target.value);
 
   const handleSendMsg = ({which}) => {
     if (which === 13 && message.length > 0) {
       const newMessage = {
-        id: users.current.id,
+        userId: users.current.id,
         message,
       };
 
-      setMessage('');
-      addMessage(newMessage);
-
+      handleAddMessage(newMessage);
       socket.io.emit(event.newMessage, newMessage);
+      setMessage('');
+
       setTimeout(() =>
-          window.scrollTo(0, document.body.scrollHeight), 0);
+          refMessages.current.scrollTo(0, refMessages.current.scrollHeight), 0);
     }
   };
 

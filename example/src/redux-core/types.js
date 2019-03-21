@@ -10,8 +10,8 @@ export const socket = {
 };
 
 export const user = {
-  GET_USERS: 'GET_USERS',
-  SET_USER: 'SET_USER',
+  SET_USER: 'SET_CURRENT_USER',
+  SET_USERS: 'SET_LIST_OF_USERS',
 };
 
 export const chat = {

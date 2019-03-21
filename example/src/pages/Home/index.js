@@ -1,57 +1,74 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {addMessage} from '../../redux-core/actions/chat';
+import {setUsers} from '../../redux-core/actions/users';
 
 import event from '../../api/socket/events';
 
 import Slide from '@material-ui/core/Slide';
+import List from '@material-ui/core/List';
 
 import Header from '../../components/Header';
 import Message from '../../components/Message';
 import NewMessage from '../../components/NewMessage';
+import User from '../../components/User';
 
-import {Messages} from './style';
+import {Container, Users, Messages} from './style';
 
-function HomePage({chat, socket, addMessage}) {
+function HomePage({chat, socket, users, setUsers}) {
+  const messagesContainer = useRef(null);
 
   useEffect(() => {
-    const handleAddMessage = message => addMessage(message);
+    const handleSetUsers = users => setUsers(users);
 
-    socket.io.on(event.newMessage, handleAddMessage);
-    return () => socket.io.removeListener(event.newMessage, handleAddMessage);
+    socket.io.on(event.users, handleSetUsers);
+    return () => socket.io.removeListener(event.users, handleSetUsers);
   }, []);
 
   return (
       <main>
-        <Header/>
+        <Slide direction='down' in={true} mountOnEnter>
+          <Header/>
+        </Slide>
 
-        <Messages>
-          {chat.messages.map(({id, message}, index) => (
-              <Slide
-                  direction='up'
-                  in={true}
-                  key={String(index)}
-                  mountOnEnter
-              >
-                <Message message={message} userId={id}/>
-              </Slide>
-          ))}
-        </Messages>
+        <Container>
+          <Slide direction='right' in={true} mountOnEnter>
+            <Users>
+              <List>
+                {Object.values(users.data).map(user => (
+                    <User key={user.id} user={user}/>
+                ))}
+              </List>
+            </Users>
+          </Slide>
 
-        <NewMessage/>
+          <Messages ref={messagesContainer}>
+            <List>
+              {chat.messages.map(({userId, message}, index) => (
+                  <Message
+                      key={String(index)}
+                      message={message}
+                      userId={userId}
+                  />
+              ))}
+            </List>
+          </Messages>
+        </Container>
+
+        <NewMessage refMessages={messagesContainer}/>
       </main>
   );
 }
 
-const mapStateToProps = ({chat, socket}) => ({
+const mapStateToProps = ({chat, socket, users}) => ({
   chat,
   socket,
+  users,
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  addMessage,
+  setUsers,
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
