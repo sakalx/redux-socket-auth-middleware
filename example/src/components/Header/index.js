@@ -10,7 +10,9 @@ import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
-import {Container} from './style';
+import Avatar from '../Avatar';
+
+import {Container, User} from './style';
 
 function Header({socket, users, setUser}) {
 
@@ -26,12 +28,17 @@ function Header({socket, users, setUser}) {
   return (
       <AppBar position='sticky'>
         <Container>
-          <Typography color='inherit' variant='h4'>
-            {users.current.name}
-          </Typography>
+          <User>
+            <Avatar userId={users.current.id}/>
+            <Typography color='inherit' variant='h5'>
+              {users.current.name.toUpperCase()}
+            </Typography>
+          </User>
+
           <Typography color='inherit' variant='h6'>
-           Socket.io chat
+            Socket.io chat
           </Typography>
+
           <Button
               color='inherit'
               onClick={handleLogout}
