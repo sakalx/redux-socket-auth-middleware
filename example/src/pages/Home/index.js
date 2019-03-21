@@ -49,7 +49,9 @@ function HomePage({
             <Users>
               <List>
                 {Object.values(users.data).map(user => (
-                    <User key={user.id} user={user}/>
+                    users.current.id === user.id
+                    ? null
+                    : <User key={user.id} user={user}/>
                 ))}
               </List>
             </Users>

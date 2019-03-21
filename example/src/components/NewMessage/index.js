@@ -15,10 +15,14 @@ function NewMessage({
                       socket,
                       users,
                       addMessage,
-}) {
+                    }) {
   const [message, setMessage] = useState('');
 
-  const handleAddMessage = message => addMessage(message);
+  const handleAddMessage = message => {
+    addMessage(message);
+    setTimeout(() =>
+        refMessages.current.scrollTo(0, refMessages.current.scrollHeight), 0);
+  };
 
   useEffect(() => {
     socket.io.on(event.newMessage, handleAddMessage);
@@ -37,9 +41,6 @@ function NewMessage({
       handleAddMessage(newMessage);
       socket.io.emit(event.newMessage, newMessage);
       setMessage('');
-
-      setTimeout(() =>
-          refMessages.current.scrollTo(0, refMessages.current.scrollHeight), 0);
     }
   };
 
