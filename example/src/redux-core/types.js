@@ -12,6 +12,7 @@ export const socket = {
 export const user = {
   SET_USER: 'SET_CURRENT_USER',
   SET_USERS: 'SET_LIST_OF_USERS',
+  SET_USERS_STATUS: 'SET_USERS_STATUS',
 };
 
 export const chat = {

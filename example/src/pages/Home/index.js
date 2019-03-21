@@ -2,7 +2,7 @@ import React, {useEffect, useRef} from 'react';
 
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {setUsers} from '../../redux-core/actions/users';
+import {setUsers, setUserStatus} from '../../redux-core/actions/users';
 
 import event from '../../api/socket/events';
 
@@ -16,14 +16,26 @@ import User from '../../components/User';
 
 import {Container, Users, Messages} from './style';
 
-function HomePage({chat, socket, users, setUsers}) {
+function HomePage({
+                    chat,
+                    socket,
+                    users,
+                    setUsers,
+                    setUserStatus,
+                  }) {
   const messagesContainer = useRef(null);
 
   useEffect(() => {
     const handleSetUsers = users => setUsers(users);
+    const handleSetUserStatus = userStatus => setUserStatus(userStatus);
 
     socket.io.on(event.users, handleSetUsers);
-    return () => socket.io.removeListener(event.users, handleSetUsers);
+    socket.io.on(event.userStatus, handleSetUserStatus);
+
+    return () => {
+      socket.io.removeListener(event.users, handleSetUsers);
+      socket.io.removeListener(event.userStatus, handleSetUserStatus);
+    }
   }, []);
 
   return (
@@ -69,6 +81,7 @@ const mapStateToProps = ({chat, socket, users}) => ({
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   setUsers,
+  setUserStatus,
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

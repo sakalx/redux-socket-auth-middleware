@@ -3,6 +3,7 @@ import {user} from '../types';
 const {
   SET_USER,
   SET_USERS,
+  SET_USERS_STATUS,
 } = user;
 
 const initState = {
@@ -41,6 +42,21 @@ export default function(state = initState, {type, payload}) {
       return ({
         ...state,
         data: payload,
+      });
+
+    case SET_USERS_STATUS:
+      const {userId, status} = payload;
+
+      return ({
+        ...state,
+        data: {
+          ...state.data,
+
+          [userId]: {
+            ...state.data[userId],
+            status,
+          },
+        },
       });
   }
 

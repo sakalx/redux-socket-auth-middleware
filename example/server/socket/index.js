@@ -14,12 +14,14 @@ module.exports = function(server, {sessionMiddleware, sessionStore}) {
   // Socket
   io.on('connection', (socketClient) => {
     console.log('New Socket connected', socketClient.id);
+
     const {session} = socketClient.request;
     const {user} = session;
 
-    changeUserStatus('online');
-
+    socketClient.emit(event.users, userStore);
     socketClient.emit(event.user, {id: user.id, name: user.name});
+
+    changeUserStatus('online');
 
     socketClient.on(event.newMessage, message => {
       socketClient.broadcast.emit(event.newMessage, message);
@@ -42,7 +44,7 @@ module.exports = function(server, {sessionMiddleware, sessionStore}) {
 
     function changeUserStatus(status) {
       userStore[user.id].status = status;
-      socketClient.emit(event.users, userStore);
+      socketClient.broadcast.emit(event.userStatus, {userId: user.id, status});
     }
   });
 };
