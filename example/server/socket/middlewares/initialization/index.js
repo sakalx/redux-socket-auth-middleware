@@ -1,7 +1,7 @@
 module.exports = function() {
   const sql = require('../../../mysql/query');
   const table = require('../../../config')['mySQL']['table'];
-  const userStore = require('../../../store')['userStore'];
+  const store = require('../../../store');
 
   let isInit = false;
 
@@ -17,15 +17,13 @@ module.exports = function() {
     function sqlOnResult(data) {
       const uid = data.ID;
 
-      const users = {
+      store.users  = {
         [uid]: {
           id: uid,
           name: data.NAME,
           status: 'offline',
         },
       };
-
-      Object.assign(userStore, users);
     }
   }
 };

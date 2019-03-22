@@ -1,7 +1,7 @@
 module.exports = function(server, {sessionMiddleware, sessionStore}) {
   const io = require('socket.io')(server);
   const event = require('./events');
-  const userStore = require('../store')['userStore'];
+  const store = require('../store');
 
   // Middlewares
   // Initialization data
@@ -18,13 +18,15 @@ module.exports = function(server, {sessionMiddleware, sessionStore}) {
     const {session} = socketClient.request;
     const {user} = session;
 
-    socketClient.emit(event.users, userStore);
+    socketClient.emit(event.users, store.users);
     socketClient.emit(event.user, {id: user.id, name: user.name});
 
     changeUserStatus('online');
 
     socketClient.on(event.newMessage, message => {
+      store.messages = message;
       socketClient.broadcast.emit(event.newMessage, message);
+      console.log(store.messages);
     });
 
     socketClient.on(event.sigOut, () => {
@@ -43,8 +45,10 @@ module.exports = function(server, {sessionMiddleware, sessionStore}) {
     });
 
     function changeUserStatus(status) {
-      userStore[user.id].status = status;
-      socketClient.broadcast.emit(event.userStatus, {userId: user.id, status});
+      const userStatus = {userId: user.id, status};
+
+      store.userStatus = userStatus;
+      socketClient.broadcast.emit(event.userStatus, userStatus);
     }
   });
 };
