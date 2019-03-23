@@ -14,16 +14,16 @@ const initState = {
   data: {},
 };
 
-const getAvatarColor = () => {
+const getAvatarColor = index => {
   const avatarColors = [
     '#d2a0ef',
     '#65eee1',
-    '#9aa1ce',
     '#c5dd62',
     '#7ad9ff',
-    '#dec1b4',
     '#ff79a7'];
-  return avatarColors[Math.floor(Math.random() * avatarColors.length)];
+
+  return avatarColors[index];
+  //return avatarColors[Math.floor(Math.random() * avatarColors.length)];
 };
 
 export default function(state = initState, {type, payload}) {
@@ -35,8 +35,10 @@ export default function(state = initState, {type, payload}) {
       });
 
     case SET_USERS:
+      let index = 0;
       for (const userId in payload) {
-        payload[userId].avatarColor = getAvatarColor();
+        payload[userId].avatarColor = getAvatarColor(index);
+        index++;
       }
 
       return ({
