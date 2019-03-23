@@ -3,12 +3,11 @@ module.exports = function(server, {sessionMiddleware, sessionStore}) {
   const event = require('./events');
   const store = require('../store');
 
-  // Middlewares
-  // Initialization data
+  // Middleware to handle initialization data
   require('./middlewares/initialization')();
-  // Pass express sessionMiddleware into socket.io
+  // Middleware to pass express sessionMiddleware into socket.io
   require('./middlewares/session')(io, sessionMiddleware);
-  // Authentication before connect
+  // Middleware to check authentication before connect
   require('./middlewares/auth')(io, sessionStore);
 
   // Socket
@@ -20,13 +19,13 @@ module.exports = function(server, {sessionMiddleware, sessionStore}) {
 
     socketClient.emit(event.users, store.users);
     socketClient.emit(event.user, {id: user.id, name: user.name});
+    socketClient.emit(event.messages, store.messages);
 
     changeUserStatus('online');
 
     socketClient.on(event.newMessage, message => {
       store.messages = message;
       socketClient.broadcast.emit(event.newMessage, message);
-      console.log(store.messages);
     });
 
     socketClient.on(event.sigOut, () => {
