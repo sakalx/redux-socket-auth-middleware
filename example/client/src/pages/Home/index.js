@@ -17,8 +17,6 @@ import User from '../../components/User';
 
 import {Container, Users, Messages} from './style';
 
-
-// [TODO] sort users by status
 function HomePage({
                     chat,
                     socket,
@@ -54,6 +52,8 @@ function HomePage({
     };
   }, []);
 
+  const handleSorting = user => (user.status === 'online') ? -1 : 1;
+
   return (
       <main>
         <Slide direction='down' in={true} mountOnEnter>
@@ -64,7 +64,7 @@ function HomePage({
           <Slide direction='right' in={true} mountOnEnter>
             <Users>
               <List>
-                {Object.values(users.data).map(user => (
+                {Object.values(users.data).sort(handleSorting).map(user => (
                     users.current.id === user.id
                         ? null
                         : <User key={user.id} user={user}/>
