@@ -40,6 +40,7 @@ function LoginPage({socket}) {
           <IconButton
               aria-label='Github'
               color='inherit'
+              disableRipple
               href='https://github.com/sakalx/redux-socket-auth-middleware/tree/master/example'
               target='_blank'
           >
