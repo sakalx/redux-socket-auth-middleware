@@ -1,7 +1,7 @@
 {
   "name": "example",
   "version": "1.0.0",
-  "description": "Example socket.io authentication",
+  "description": "Client example socket.io authentication",
   "main": "index.js",
   "babel": {
     "presets": [
