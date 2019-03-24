@@ -2,11 +2,11 @@
   "name": "socketio-auth",
   "version": "0.0.1",
   "description": "Server example socket.io authentication",
-  "main": "server.js",
+  "main": "server",
   "scripts": {
     "dev": "nodemon",
-    "heroku-postbuild": "cd ../client && npm install && npm run build",
-    "satrt": "node server.js"
+    "heroku-postbuild": "cd client && npm install && npm run build",
+    "satrt": "node server"
   },
   "keywords": [
     "auth",
