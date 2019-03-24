@@ -1,4 +1,4 @@
-module.exports = function (user, session, next) {
+module.exports = function(user, session, next) {
   const sql = require('../../../mysql/query');
   const table = require('../../../config')['mySQL']['table'];
 
@@ -16,10 +16,14 @@ module.exports = function (user, session, next) {
   });
 
   function signInUser() {
-    if (!userFromDb) return next(new Error('User not found'));
-    if (userFromDb.PASSWORD !== user.password) return next(new Error('Incorrect password'));
+    if (!userFromDb) {
+      return next(new Error('User not found'));
+    }
+    if (userFromDb.PASSWORD !== user.password) {
+      return next(new Error('Incorrect password'));
+    }
 
-    // Save to session user
+    // Save into session user
     session.user = {
       id: userFromDb.ID,
       name: userFromDb.NAME,

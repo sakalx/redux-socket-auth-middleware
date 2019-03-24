@@ -1,14 +1,15 @@
-const Store = (function () {
+const Store = (function() {
   const _messages = [];
   const _users = {};
 
   class Store {
     set messages(message) {
-
       if (_users[message.userId] && message.message.length < 30) {
         _messages.push(message);
       }
-      if (_messages.length > 21) _messages.shift();
+      if (_messages.length > 21) {
+        _messages.shift();
+      }
     }
 
     get messages() {

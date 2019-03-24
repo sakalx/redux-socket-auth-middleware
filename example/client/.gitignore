@@ -1,4 +1,4 @@
 /node_modules
 /.idea
-/public
+/build
 package-lock.json

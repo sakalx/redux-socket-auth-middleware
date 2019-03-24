@@ -17,7 +17,7 @@ module.exports = function() {
     function sqlOnResult(data) {
       const uid = data.ID;
 
-      store.users  = {
+      store.users = {
         [uid]: {
           id: uid,
           name: data.NAME,

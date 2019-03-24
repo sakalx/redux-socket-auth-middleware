@@ -8,7 +8,7 @@ const FaviconWebpackPlugin = require('favicons-webpack-plugin');
 
 // Folders:
 const development = 'src';
-const production = 'public';
+const production = 'build';
 
 const SRC_DIR = path.join(__dirname, development);
 const DIST_DIR = path.join(__dirname, production);

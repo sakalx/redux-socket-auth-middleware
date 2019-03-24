@@ -5,7 +5,7 @@ const config = require('../config');
 const db = mysql.createConnection(config.mySQL.connection);
 
 // Check connection
-db.connect(function (error) {
+db.connect(function(error) {
   if (error) throw error;
   console.log('Connected to SQL db: ', config.mySQL.connection.database);
 });

@@ -1,4 +1,4 @@
-module.exports = function (io, sessionStore) {
+module.exports = function(io, sessionStore) {
   const cookie = require('cookie');
   const cookieParser = require('cookie-parser');
 
@@ -12,11 +12,14 @@ module.exports = function (io, sessionStore) {
 
     const session = socket.request.session;
     const cookies = cookie.parse(socket.request.headers.cookie || '');
-    const sid = cookieParser.signedCookie(cookies['connect.sid'], config.session.secret);
+    const sid = cookieParser.signedCookie(
+        cookies['connect.sid'],
+        config.session.secret,
+    );
 
-    user
-      ? sigIn(user, session, next)
-      : sessionStore.load(sid, loadSession(next));
+    (user)
+        ? sigIn(user, session, next)
+        : sessionStore.load(sid, loadSession(next));
   });
 
 };
