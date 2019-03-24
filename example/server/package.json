@@ -8,6 +8,17 @@
     "heroku-postbuild": "cd ../client && npm install && npm run build",
     "satrt": "node server.js"
   },
+  "keywords": [
+    "auth",
+    "authentication",
+    "authorization",
+    "chat",
+    "heroku",
+    "middleware",
+    "session",
+    "socket",
+    "socket.io"
+  ],
   "author": "Sakal Serhii <sakals@mail.ua>",
   "license": "MIT",
   "dependencies": {
