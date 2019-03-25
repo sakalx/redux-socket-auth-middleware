@@ -5,8 +5,8 @@
   "main": "server",
   "scripts": {
     "dev": "nodemon",
-    "heroku-postbuild": "cd client && npm install && npm run build",
-    "satrt": "node server"
+    "heroku-postbuild": "cd client && npm install && npm install --dev && npm run build",
+    "start": "node server"
   },
   "keywords": [
     "auth",
