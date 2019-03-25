@@ -4,6 +4,7 @@
 
 Inspiration from [redux-promise-middleware.](https://www.npmjs.com/package/redux-promise-middleware)
 ____________________________________________________
+[Demo project: chat with authentication](https://socketio-auth.herokuapp.com)
 
 ### [Where should websockets and other persistent connections live?](https://redux.js.org/faq/code-structure#where-should-websockets-and-other-persistent-connections-live)
 
@@ -229,8 +230,7 @@ ____________________________________________________
    next();
  });
 ```
- 
- **[TODO] Example of implementation server-side socket.io authentication**
+*[Example of implementation.]( https://github.com/sakalx/redux-socket-auth-middleware/tree/example-chat)*
  
  ____________________________________________________
  
